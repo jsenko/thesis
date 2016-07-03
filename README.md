@@ -1,1 +1,1 @@
-# diplomka
+# Thesis
