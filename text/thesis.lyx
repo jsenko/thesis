@@ -1,0 +1,1035 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass fithesis2
+\begin_preamble
+
+%\newcommand*{\foo}{foo}
+
+%\bibliographystyle{unsrtnat}
+
+%\usepackage[pdftex]{hyperref}
+%\lstset{basicstyle=\ttfamily}
+%\newcommand{\TitlePages}{\ThesisTitlePage\FrontMatter}
+%\hyphenation{de-bug-ging}
+%\usepackage{listings}
+\end_preamble
+\options 11pt,oneside,final
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding utf8
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 2
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Formal design of a distributed hash table
+\end_layout
+
+\begin_layout Subtitle
+Master's thesis
+\end_layout
+
+\begin_layout Author
+Jakub Senko
+\end_layout
+
+\begin_layout AuthorIsWoman
+false
+\end_layout
+
+\begin_layout University
+Masaryk University
+\end_layout
+
+\begin_layout Faculty
+Faculty of Informatics
+\end_layout
+
+\begin_layout Logo
+fi-logo
+\end_layout
+
+\begin_layout Advisor
+RNDr.
+ Vojtěch Řehák, Ph.D.
+\end_layout
+
+\begin_layout ThesisDate
+Brno 2016
+\end_layout
+
+\begin_layout ThesisLanguage
+en
+\end_layout
+
+\begin_layout ThesisDeclaration
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+DeclarationText
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+AdvisorName
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout ThesisThanks
+I would like to thank...
+ 
+\begin_inset Note Greyedout
+status open
+
+\begin_layout Plain Layout
+TODO
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Abstract
+This thesis is focused on a design of a distributed hash table model and
+ formal verification of its behaviour under failure conditions [using PlusCal/TL
+A+ languages].
+ The model matches algorithms and protocols used in the Infinispan project.
+ Advantages and limitations of the model and the used technique are described.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Keywords
+formal software verification, model checking, distributed hash table, Infinispan
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+MainMatter
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Chapter
+Introduction
+\begin_inset CommandInset label
+LatexCommand label
+name "chap:Introduction"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Testing is an integral part of software development - Several types of testing
+ - Model checking - Having a proper model can be beneficial during the design
+ and analysis phases, because it helps developers to catch potential design
+ errors, especially in complex concurrent and distributed systems.
+ - There are several projects at Red Hat where this is important.
+ - One of these is Infinispan, a its core a distributed key-value storage.
+ Having a model of a hash-table with the same basic design would help developers
+ to prevent design errors.
+ - This thesis was motivated by a successful use of model checking tools
+ for development of Amazon AWS S3 product and is aimed to provide benefits
+ of these techniques to Infinispan developers.
+ 
+\end_layout
+
+\begin_layout Chapter
+Model checking
+\end_layout
+
+\begin_layout Standard
+In this chapter, [motivation, considerations] overview of the model checking
+ techniques is presented.
+\end_layout
+
+\begin_layout Section
+System Verification
+\end_layout
+
+\begin_layout Standard
+Techniques:
+\end_layout
+
+\begin_layout Section
+Characteristics of Model Checking
+\end_layout
+
+\begin_layout Standard
+Model checking is an automated technique that, given a finite-state model
+ of a system and a formal property, systematically checks whether this property
+ holds for (a given state in) that model.
+\end_layout
+
+\begin_layout Standard
+TODO:
+\end_layout
+
+\begin_layout Itemize
+system specification
+\end_layout
+
+\begin_layout Itemize
+Comparison to other testing & verification techniques
+\end_layout
+
+\begin_layout Itemize
+Disadvantages (state explosion, model realism - Any verification using model-bas
+ed techniques is only as good as the model of the system.)
+\end_layout
+
+\begin_layout Chapter
+Distributed hash table
+\begin_inset CommandInset label
+LatexCommand label
+name "chap:Distributed-hash-table"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Hash table is a data structure that maps keys to values (associative array),
+ using a hashing function applied on keys.
+ This is ordinarily used for a small sized in-memory data storage embedded
+ inside a program.
+ However, some use cases require storing of a large amount of unstructured
+ data, which can use persistent key-value databases that store the data
+ on hard drive storage.
+ However, this reduces speed -> is not suitable for caching.
+ To avoid the memory size limitation, data can be distributed across many
+ nodes that together provide a large pool of fast (but volatile) memory.
+\end_layout
+
+\begin_layout Standard
+The main issues arise from managing the distrubution of data on the nodes
+ while maintaining high degree of consistency and availability.
+\end_layout
+
+\begin_layout Itemize
+Formal definition, hash function
+\end_layout
+
+\begin_layout Section
+CAP theorem
+\end_layout
+
+\begin_layout Standard
+it is impossible for a distributed computer system to simultaneously provide
+ all three of the following guarantees:
+\end_layout
+
+\begin_layout Itemize
+Consistency (all nodes see the same data at the same time)
+\end_layout
+
+\begin_layout Itemize
+Availability (every request receives a response about whether it succeeded
+ or failed) 
+\end_layout
+
+\begin_layout Itemize
+Partition tolerance (the system continues to operate despite arbitrary partition
+ing due to network failures) 
+\end_layout
+
+\begin_layout Chapter
+Infinispan design
+\end_layout
+
+\begin_layout Standard
+There are three main caching techniques that can be deployed, each with
+ their own pros and cons.
+ 
+\end_layout
+
+\begin_layout Itemize
+Write-through cache directs write I/O onto cache and through to underlying
+ permanent storage before confirming I/O completion to the host.
+ 
+\end_layout
+
+\begin_layout Itemize
+Write-around cache is a similar technique to write-through cache, but write
+ I/O is written directly to permanent storage, bypassing the cache.
+ This can reduce the cache being flooded with write I/O that will not subsequent
+ly be re-read, but has the disadvantage is that a read request for recently
+ written data will create a “cache miss” and have to be read from slower
+ bulk storage and experience higher latency.
+\end_layout
+
+\begin_layout Itemize
+Write-back cache is where write I/O is directed to cache and completion
+ is immediately confirmed to the host.
+ This results in low latency and high throughput for write-intensive application
+s, but there is data availability exposure risk because the only copy of
+ the written data is in cache.
+\end_layout
+
+\begin_layout Section
+Overview
+\end_layout
+
+\begin_layout Standard
+Infinispan is at its core a distributed in-memory hashtable.
+\end_layout
+
+\begin_layout Standard
+More complex features are built on top of that:
+\end_layout
+
+\begin_layout Itemize
+persistence (file storage) 
+\end_layout
+
+\begin_layout Itemize
+Apache Lucene queries (fulltext indexes) 
+\end_layout
+
+\begin_layout Itemize
+map/reduce engine
+\end_layout
+
+\begin_layout Itemize
+enterprise integration (Java EE servers, CDI, Spring) 
+\end_layout
+
+\begin_layout Itemize
+management
+\end_layout
+
+\begin_layout Standard
+There are two main use-cases (modes): 
+\end_layout
+
+\begin_layout Itemize
+embedded - used as a library in a Java SE application 
+\end_layout
+
+\begin_layout Itemize
+server - standalone deployment (in an application server) that the clients
+ communicate with using REST API or binary protocol
+\end_layout
+
+\begin_layout Section
+Concurrency in Infinispan
+\end_layout
+
+\begin_layout Standard
+Infinispan offers four modes of operation, which determine how and where
+ the data is stored: 
+\end_layout
+
+\begin_layout Itemize
+local - where entries are stored on the local node only, regardless of whether
+ a cluster has formed.
+ In this mode Infinispan is typically operating as a local cache 
+\end_layout
+
+\begin_layout Itemize
+invalidation (write-around cache) - where all entries are stored in a permanent
+ store (such as a database) and cache is used to alleviate intensive read
+ operations.
+ When a node needs the entry it will load it from a cache store.
+ Clustering is used only to invalidate data on all nodes on change.
+ 
+\end_layout
+
+\begin_layout Itemize
+replication - where all entries are replicated to all nodes.
+ In this mode Infinispan is typically operating as a data grid or a temporary
+ data store, but doesn’t offer an increased heap space.
+ 
+\end_layout
+
+\begin_layout Itemize
+distribution - where entries are distributed to a subset of the nodes only.
+ In this mode Infinispan is typically operating as a data grid providing
+ an increased heap space.
+ Uses topology aware consistent hashing, which will ensure that the owners
+ of entries are located in different data centers, racks, or physical machines,
+ to offer improved durability in case of node crashes or network outages.
+\end_layout
+
+\begin_layout Standard
+Last three options can use synchronous or asynchronous modes.
+ In synchronous mode, client is blocked until the operations complete and
+ are confirmed.
+\end_layout
+
+\begin_layout Section
+Distributed mode
+\end_layout
+
+\begin_layout Standard
+Every entry is stored on a subset of the nodes in the grid, providing increased
+ storage capacity for increased latency.
+\end_layout
+
+\begin_layout Standard
+Compared to replication, distribution offers increased storage capacity,
+ but with increased latency to access data from non-owner nodes, and durability
+ (data may be lost if all the owners are stopped in a short time interval).
+ Adjusting the number of owners allows you to obtain the trade off between
+ space, durability, and latency.
+\end_layout
+
+\begin_layout Standard
+Infinispan also offers a topology aware consistent hash which will ensure
+ that the owners of entries are located in different data centers, racks,
+ or physical machines, to offer improved durability in case of node crashes
+ or network outages.
+ The cache should be configured to work in distributed mode (either synchronous
+ or asynchronous), and can otherwise be configured as normal.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename infinispn-distributed-mode.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset line
+LatexCommand rule
+offset "0.5ex"
+width "100col%"
+height "1pt"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+CAP theorem - Infinispan has traditionally been biased towards Consistency
+ and Availability, sacrificing Partition-tolerance.
+\end_layout
+
+\begin_layout Standard
+A service that is consistent operates fully or not at all.
+ Gilbert and Lynch use the word “atomic” instead of consistent in their
+ proof, which makes more sense technically.
+\end_layout
+
+\begin_layout Section
+Architecture
+\end_layout
+
+\begin_layout Standard
+Core infinispan functionality is implemented in several components:
+\end_layout
+
+\begin_layout Itemize
+JGroups transport layer used to form the cluster reliable communications
+ between members provides information about topology change
+\end_layout
+
+\begin_layout Itemize
+RPC framework on top of the transport layers each action is modeled as a
+ separate 
+\emph on
+command object
+\emph default
+, that is replicated and transported to the target cluster members, encapsulates
+ cahce operations
+\end_layout
+
+\begin_layout Itemize
+DataContainer The main internal data structure which stores entries
+\end_layout
+
+\begin_layout Itemize
+LockManager An interface to deal with all aspects of acquiring and releasing
+ locks for cache entries.
+\end_layout
+
+\begin_layout Standard
+IoC container that stores many other components CommandsFactory EvictionManager
+ ExpirationManager InterceptorChain TransactionManager RpcManager LockManager
+ PartitionHandlingManager etc.
+ 
+\end_layout
+
+\begin_layout Section
+JGroups
+\end_layout
+
+\begin_layout Standard
+Java library for reliable clustering.
+ It is used by Infinispan as the transport layer.
+ It consists of:
+\end_layout
+
+\begin_layout Itemize
+abstract channels (JChannel) 
+\end_layout
+
+\begin_layout Itemize
+stack of protocols (up, down), on the lowest level are TCP or UDP sockets
+\end_layout
+
+\begin_layout Standard
+Protocols 
+\begin_inset Note Greyedout
+status open
+
+\begin_layout Plain Layout
+http://www.jgroups.org/manual/html/protlist.html
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+transport - UDP, TCP
+\end_layout
+
+\begin_layout Itemize
+discovery PING, TCPPING, MPING
+\end_layout
+
+\begin_layout Itemize
+merging finds nodes merge node leaves cluster & then joins again (MERGE3)
+ 
+\end_layout
+
+\begin_layout Itemize
+failure detection FD_ALL multicast heartbeat FD_SOCK
+\end_layout
+
+\begin_layout Itemize
+reliable transmission ordering NAKACK, UNICAST3 
+\end_layout
+
+\begin_layout Itemize
+message stability STABLE 
+\end_layout
+
+\begin_layout Itemize
+group members GMS - leaves, joins 
+\end_layout
+
+\begin_layout Itemize
+flow control UFC, slowing down 
+\end_layout
+
+\begin_layout Itemize
+fragmentation FRAG2, split & reassebles large msgs synchronous sending RSVP
+ state transfer STATE_TRANSFER, STATE
+\end_layout
+
+\begin_layout Standard
+API overview
+\end_layout
+
+\begin_layout Itemize
+Group - A group is identified by its name.
+ Groups do not have to be created explicitly; when a process joins a non-existin
+g group, that group will be created automatically.
+ Processes of a group can be located on the same host, within the same LAN,
+ or across a WAN.
+ A member can be part of multiple groups.
+\end_layout
+
+\begin_layout Itemize
+Adress - class uniquely identifying a node
+\end_layout
+
+\begin_layout Itemize
+JChannel - This is the core interface of JGroups.
+ Requires stack configuration (e.g.
+ using an xml file).
+ Connect method takes group name (uses UDP multicast for discovery) or adress
+ of an existing member.
+ Send method requires an adress (from view) to unicast, multicast does not.
+\end_layout
+
+\begin_layout Itemize
+View - nodes receive view objects containing a snapshot of the current list
+ of nodes, changes each time a node joins or leaves the cluster.
+ First node in the list is the coordinator.
+ 
+\end_layout
+
+\begin_layout Itemize
+Operations connect to cluster send message receive message
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Greyedout
+status open
+
+\begin_layout Plain Layout
+TODO, config xml for Infinispan, org.infinispan.remoting.transport.jgroups
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Remoting
+\end_layout
+
+\begin_layout Paragraph*
+ReplicationQueue
+\end_layout
+
+\begin_layout Standard
+Periodically (or when certain size is exceeded) takes elements and replicates
+ them.
+ Queue of Replicable Command objects, the core of the command-based cache
+ framework.
+ Commands correspond to specific areas of functionality in the cache.
+\end_layout
+
+\begin_layout Paragraph*
+Transport
+\end_layout
+
+\begin_layout Standard
+An interface that provides a communication link with remote caches.
+ Also allows remote caches to invoke commands on this cache instance.
+ Has a number of invokeRemotely* methods, sync and async, that invoke an
+ RPC call on other caches in the cluster.
+ Returns a map of responses from each member contacted.
+ Uses a Total Order protocol.
+ Remembers if this cache is a coordinator, current adress, adresses of members
+ in the cluster view.
+ It is implemented as JGroupsTransport, which uses JGroups to transmit command
+ objects to the other nodes.
+\end_layout
+
+\begin_layout Section
+Commands
+\end_layout
+
+\begin_layout Standard
+All cache operations are represented as command objects, both locally and
+ as a form of RPC can be sent to other nodes in the cluster.
+ ReplicableCommand is the core interface of the command-based cache framework.
+ Commands correspond to specific areas of functionality in the cache, and
+ can be replicated using the org.infinispan.remoting.rpc.
+ RpcManager.
+ Main method is 
+\emph on
+Object perform(InvocationContext ctx) throws Throwable
+\emph default
+, which performs the primary function of the command.
+ Infinispan uses visitor (interceptor) pattern, to handle the command in
+ several steps.
+ This method will be invoked at the end of interceptors chain.
+ Every command has an unique ID that identifies it when serialized to be
+ sent via the network.
+\end_layout
+
+\begin_layout Chapter
+Modeling languages and tools
+\end_layout
+
+\begin_layout Standard
+There are several types of techniques for model checking and tools that
+ implement each approach.
+ After considering the available options, one is chosen for the final implementa
+tion.
+\end_layout
+
+\begin_layout Section
+Model checking techniques
+\end_layout
+
+\begin_layout Itemize
+Explicit-state Model Checking - TLC (TLA+/PlusCal), SPIN (Promela - Process/Prot
+ocol Meta Language)
+\end_layout
+
+\begin_layout Itemize
+Symbolic Execution - Java Path Finder (Java/bytecode) http://babelfish.arc.nasa.gov
+/trac/jpf
+\end_layout
+
+\begin_layout Itemize
+JPF Implementation of the JVM, executes the bytecode directly.
+\end_layout
+
+\begin_layout Itemize
+SPIN Processes that communicate via channels (message passing)
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Greyedout
+status open
+
+\begin_layout Plain Layout
+TODO
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Chapter
+Model Design
+\end_layout
+
+\begin_layout Standard
+In this chapter, top-down desing of the model is presented.
+\end_layout
+
+\begin_layout Section
+High-level design
+\end_layout
+
+\begin_layout Standard
+System is an interaction between a cluster of data (server) nodes a set
+ of clients issuing read and write requests to each data node.
+ More formally, system is modeled as a 4-tuple Q=(C, S, N, M) where
+\end_layout
+
+\begin_layout Itemize
+C is a set of client nodes
+\end_layout
+
+\begin_layout Itemize
+S is a set of server nodes
+\end_layout
+
+\begin_layout Itemize
+N is the network which handles the communication
+\end_layout
+
+\begin_layout Itemize
+M is the set of possible messages that can be transported over the network
+\end_layout
+
+\begin_layout Standard
+Let X be some well-defined component of the sytem.
+ states(X) be a set of all possible states that X can be in.
+ Because the entire system must be a finite-state machine with a reasonable
+ size, we must have a mechanism to estimate the state space size.
+ We can encode each state in a unique a bit-string of length log2(|M|).
+ Because the model represents a storage system, it is not possible to model
+ data table with a reasonable capacity and bounds.
+ Therefore the parameters that influence |states(Q)| must be carefuly selected.
+ This includes the size of the separate components of Q, such as the number
+ of nodes.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Greyedout
+status open
+
+\begin_layout Plain Layout
+TODO expand
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We will now explore components M of the system in increasingly more detail,
+ select parameters that which we want to include in the model and estimate
+ their effect on |states(Q)|.
+\end_layout
+
+\begin_layout Section
+Network
+\end_layout
+
+\begin_layout Standard
+Physical computer network can be abstracted into a graph G with vertices
+ representing nodes, edges possible connections: V(G)=(C
+\backslash
+cupS
+\backslash
+cup).
+ Physical networks also consist of routing and other devices, however for
+ our initial attempt, we can let the graph be a clique and simulate network
+ failures by removing the edges or otherwise changing their the properties.
+\begin_inset CommandInset line
+LatexCommand rule
+offset "0.5ex"
+width "100col%"
+height "1pt"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Properties to check:
+\end_layout
+
+\begin_layout Itemize
+unreliable message delivery (relation to JGroups?, view change?) 
+\end_layout
+
+\begin_layout Itemize
+message dropping
+\end_layout
+
+\begin_layout Itemize
+asynchronous delivery, e.g.
+ unordered messages
+\end_layout
+
+\begin_layout Itemize
+delay - network partitions 
+\end_layout
+
+\begin_layout Standard
+These can be modeled by adding a non-deterministic decision to drop a message,
+ and a decision to delay a message up to a specified amount of time.
+ If the network edge is modeled as a priority queue with delays for each
+ direction, this would also model message reordering.
+ This queue must be size-limited and excessive messages dropped.
+\end_layout
+
+\begin_layout Standard
+Not-well formed messages would be hard to model, and since the network layer
+ is implemented using JGroup which provide some guarantees to Infinispan,
+ it depends on the level of detail that JGroups will be modelled.
+\end_layout
+
+\begin_layout Standard
+Size and the resulting capacity of the must be kept reasonaly small, as
+ well as the total number of possible messages.
+\end_layout
+
+\begin_layout Section
+Data node
+\end_layout
+
+\begin_layout Standard
+Data node contains:
+\end_layout
+
+\begin_layout Itemize
+The hash table
+\end_layout
+
+\begin_layout Itemize
+Locks and synchronization mechanisms
+\end_layout
+
+\begin_layout Itemize
+Network command receiving and execution loop
+\end_layout
+
+\begin_layout Section
+Client node
+\end_layout
+
+\begin_layout Standard
+The purpose of client nodes is to connect to data nodes and issue read-write
+ operations.
+ Verification of the system properties uses both the state of the clients
+ when issuing a command and the resulting effects on data nodes and other
+ clients that may read the data.
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-3"
+
+\end_inset
+
+BAIER Christel, KATOEN Joost-Pieter.
+ Principles of Model Checking, Cambridge, Massachusetts: The MIT Press,
+ ISBN 978-0-262-02649-9.
+\end_layout
+
+\begin_layout Chapter*
+Appendix A
+\begin_inset Newline newline
+\end_inset
+
+Archive Content
+\begin_inset CommandInset label
+LatexCommand label
+name "chap:Appendix-AArchive-Content"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+addcontentsline{toc}{chapter}{
+\backslash
+textbf{A
+\backslash
+hspace{.75em}Archive Content}}
+\end_layout
+
+\end_inset
+
+This archive contains contents of the project's git repository, currently
+ hosted on GitHub:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Note Greyedout
+status open
+
+\begin_layout Plain Layout
+TODO
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename foo.png
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
