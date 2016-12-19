@@ -1,0 +1,476 @@
+The following behavior constitutes a counter-example:
+
+@!@!@ENDMSG 2264 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+1: <Initial predicate>
+/\ s = (3 :> defaultInitValue @@ 4 :> defaultInitValue)
+/\ w = [p |-> 1, q |-> <<>>]
+/\ pc = <<"startR", "startR", "startW", "startW">>
+/\ readCount = 0
+/\ s_ = <<defaultInitValue, defaultInitValue>>
+/\ mutex = [p |-> 1, q |-> <<>>]
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+2: <Action line 107, col 17 to line 109, col 61 of module RWPWithRPAndFairSemaphore>
+/\ s = (3 :> defaultInitValue @@ 4 :> defaultInitValue)
+/\ w = [p |-> 1, q |-> <<>>]
+/\ pc = <<"s01", "startR", "startW", "startW">>
+/\ readCount = 0
+/\ s_ = <<defaultInitValue, defaultInitValue>>
+/\ mutex = [p |-> 1, q |-> <<>>]
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+3: <Action line 197, col 17 to line 199, col 61 of module RWPWithRPAndFairSemaphore>
+/\ s = (3 :> defaultInitValue @@ 4 :> defaultInitValue)
+/\ w = [p |-> 1, q |-> <<>>]
+/\ pc = <<"s01", "startR", "s15", "startW">>
+/\ readCount = 0
+/\ s_ = <<defaultInitValue, defaultInitValue>>
+/\ mutex = [p |-> 1, q |-> <<>>]
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+4: <Action line 107, col 17 to line 109, col 61 of module RWPWithRPAndFairSemaphore>
+/\ s = (3 :> defaultInitValue @@ 4 :> defaultInitValue)
+/\ w = [p |-> 1, q |-> <<>>]
+/\ pc = <<"s01", "s01", "s15", "startW">>
+/\ readCount = 0
+/\ s_ = <<defaultInitValue, defaultInitValue>>
+/\ mutex = [p |-> 1, q |-> <<>>]
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+5: <Action line 111, col 14 to line 116, col 47 of module RWPWithRPAndFairSemaphore>
+/\ s = (3 :> defaultInitValue @@ 4 :> defaultInitValue)
+/\ w = [p |-> 1, q |-> <<>>]
+/\ pc = <<"s01", "s02", "s15", "startW">>
+/\ readCount = 0
+/\ s_ = <<defaultInitValue, TRUE>>
+/\ mutex = [p |-> 0, q |-> <<>>]
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+6: <Action line 118, col 14 to line 122, col 58 of module RWPWithRPAndFairSemaphore>
+/\ s = (3 :> defaultInitValue @@ 4 :> defaultInitValue)
+/\ w = [p |-> 1, q |-> <<>>]
+/\ pc = <<"s01", "s03", "s15", "startW">>
+/\ readCount = 0
+/\ s_ = <<defaultInitValue, TRUE>>
+/\ mutex = [p |-> 0, q |-> <<>>]
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+7: <Action line 124, col 14 to line 128, col 58 of module RWPWithRPAndFairSemaphore>
+/\ s = (3 :> defaultInitValue @@ 4 :> defaultInitValue)
+/\ w = [p |-> 1, q |-> <<>>]
+/\ pc = <<"s01", "s04", "s15", "startW">>
+/\ readCount = 0
+/\ s_ = <<defaultInitValue, TRUE>>
+/\ mutex = [p |-> 0, q |-> <<>>]
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+8: <Action line 130, col 14 to line 135, col 51 of module RWPWithRPAndFairSemaphore>
+/\ s = (3 :> defaultInitValue @@ 4 :> defaultInitValue)
+/\ w = [p |-> 0, q |-> <<>>]
+/\ pc = <<"s01", "s05", "s15", "startW">>
+/\ readCount = 0
+/\ s_ = <<defaultInitValue, TRUE>>
+/\ mutex = [p |-> 0, q |-> <<>>]
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+9: <Action line 137, col 14 to line 141, col 58 of module RWPWithRPAndFairSemaphore>
+/\ s = (3 :> defaultInitValue @@ 4 :> defaultInitValue)
+/\ w = [p |-> 0, q |-> <<>>]
+/\ pc = <<"s01", "s06", "s15", "startW">>
+/\ readCount = 0
+/\ s_ = <<defaultInitValue, TRUE>>
+/\ mutex = [p |-> 0, q |-> <<>>]
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+10: <Action line 143, col 14 to line 146, col 47 of module RWPWithRPAndFairSemaphore>
+/\ s = (3 :> defaultInitValue @@ 4 :> defaultInitValue)
+/\ w = [p |-> 0, q |-> <<>>]
+/\ pc = <<"s01", "s07", "s15", "startW">>
+/\ readCount = 1
+/\ s_ = <<defaultInitValue, TRUE>>
+/\ mutex = [p |-> 0, q |-> <<>>]
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+11: <Action line 197, col 17 to line 199, col 61 of module RWPWithRPAndFairSemaphore>
+/\ s = (3 :> defaultInitValue @@ 4 :> defaultInitValue)
+/\ w = [p |-> 0, q |-> <<>>]
+/\ pc = <<"s01", "s07", "s15", "s15">>
+/\ readCount = 1
+/\ s_ = <<defaultInitValue, TRUE>>
+/\ mutex = [p |-> 0, q |-> <<>>]
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+12: <Action line 148, col 14 to line 151, col 51 of module RWPWithRPAndFairSemaphore>
+/\ s = (3 :> defaultInitValue @@ 4 :> defaultInitValue)
+/\ w = [p |-> 0, q |-> <<>>]
+/\ pc = <<"s01", "s09", "s15", "s15">>
+/\ readCount = 1
+/\ s_ = <<defaultInitValue, TRUE>>
+/\ mutex = [p |-> 1, q |-> <<>>]
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+13: <Action line 111, col 14 to line 116, col 47 of module RWPWithRPAndFairSemaphore>
+/\ s = (3 :> defaultInitValue @@ 4 :> defaultInitValue)
+/\ w = [p |-> 0, q |-> <<>>]
+/\ pc = <<"s02", "s09", "s15", "s15">>
+/\ readCount = 1
+/\ s_ = <<TRUE, TRUE>>
+/\ mutex = [p |-> 0, q |-> <<>>]
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+14: <Action line 201, col 14 to line 206, col 52 of module RWPWithRPAndFairSemaphore>
+/\ s = (3 :> defaultInitValue @@ 4 :> FALSE)
+/\ w = [p |-> 0, q |-> <<4>>]
+/\ pc = <<"s02", "s09", "s15", "s16">>
+/\ readCount = 1
+/\ s_ = <<TRUE, TRUE>>
+/\ mutex = [p |-> 0, q |-> <<>>]
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+15: <Action line 157, col 14 to line 160, col 58 of module RWPWithRPAndFairSemaphore>
+/\ s = (3 :> defaultInitValue @@ 4 :> FALSE)
+/\ w = [p |-> 0, q |-> <<4>>]
+/\ pc = <<"s02", "s10", "s15", "s16">>
+/\ readCount = 1
+/\ s_ = <<TRUE, TRUE>>
+/\ mutex = [p |-> 0, q |-> <<>>]
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+16: <Action line 201, col 14 to line 206, col 52 of module RWPWithRPAndFairSemaphore>
+/\ s = (3 :> FALSE @@ 4 :> FALSE)
+/\ w = [p |-> 0, q |-> <<4, 3>>]
+/\ pc = <<"s02", "s10", "s16", "s16">>
+/\ readCount = 1
+/\ s_ = <<TRUE, TRUE>>
+/\ mutex = [p |-> 0, q |-> <<>>]
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+17: <Action line 162, col 14 to line 167, col 47 of module RWPWithRPAndFairSemaphore>
+/\ s = (3 :> FALSE @@ 4 :> FALSE)
+/\ w = [p |-> 0, q |-> <<4, 3>>]
+/\ pc = <<"s02", "s11", "s16", "s16">>
+/\ readCount = 1
+/\ s_ = <<TRUE, FALSE>>
+/\ mutex = [p |-> 0, q |-> <<2>>]
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+18: <Action line 208, col 14 to line 212, col 58 of module RWPWithRPAndFairSemaphore>
+/\ s = (3 :> FALSE @@ 4 :> FALSE)
+/\ w = [p |-> 0, q |-> <<4, 3>>]
+/\ pc = <<"s02", "s11", "s16", "s15">>
+/\ readCount = 1
+/\ s_ = <<TRUE, FALSE>>
+/\ mutex = [p |-> 0, q |-> <<2>>]
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+19: <Action line 118, col 14 to line 122, col 58 of module RWPWithRPAndFairSemaphore>
+/\ s = (3 :> FALSE @@ 4 :> FALSE)
+/\ w = [p |-> 0, q |-> <<4, 3>>]
+/\ pc = <<"s03", "s11", "s16", "s15">>
+/\ readCount = 1
+/\ s_ = <<TRUE, FALSE>>
+/\ mutex = [p |-> 0, q |-> <<2>>]
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+20: <Action line 201, col 14 to line 206, col 52 of module RWPWithRPAndFairSemaphore>
+/\ s = (3 :> FALSE @@ 4 :> FALSE)
+/\ w = [p |-> 0, q |-> <<4, 3>>]
+/\ pc = <<"s03", "s11", "s16", "s16">>
+/\ readCount = 1
+/\ s_ = <<TRUE, FALSE>>
+/\ mutex = [p |-> 0, q |-> <<2>>]
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+21: <Action line 208, col 14 to line 212, col 58 of module RWPWithRPAndFairSemaphore>
+/\ s = (3 :> FALSE @@ 4 :> FALSE)
+/\ w = [p |-> 0, q |-> <<4, 3>>]
+/\ pc = <<"s03", "s11", "s15", "s16">>
+/\ readCount = 1
+/\ s_ = <<TRUE, FALSE>>
+/\ mutex = [p |-> 0, q |-> <<2>>]
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+22: <Action line 169, col 14 to line 173, col 58 of module RWPWithRPAndFairSemaphore>
+/\ s = (3 :> FALSE @@ 4 :> FALSE)
+/\ w = [p |-> 0, q |-> <<4, 3>>]
+/\ pc = <<"s03", "s10", "s15", "s16">>
+/\ readCount = 1
+/\ s_ = <<TRUE, FALSE>>
+/\ mutex = [p |-> 0, q |-> <<2>>]
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+23: <Action line 124, col 14 to line 128, col 58 of module RWPWithRPAndFairSemaphore>
+/\ s = (3 :> FALSE @@ 4 :> FALSE)
+/\ w = [p |-> 0, q |-> <<4, 3>>]
+/\ pc = <<"s06", "s10", "s15", "s16">>
+/\ readCount = 1
+/\ s_ = <<TRUE, FALSE>>
+/\ mutex = [p |-> 0, q |-> <<2>>]
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+24: <Action line 201, col 14 to line 206, col 52 of module RWPWithRPAndFairSemaphore>
+/\ s = (3 :> FALSE @@ 4 :> FALSE)
+/\ w = [p |-> 0, q |-> <<4, 3>>]
+/\ pc = <<"s06", "s10", "s16", "s16">>
+/\ readCount = 1
+/\ s_ = <<TRUE, FALSE>>
+/\ mutex = [p |-> 0, q |-> <<2>>]
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+25: <Action line 208, col 14 to line 212, col 58 of module RWPWithRPAndFairSemaphore>
+/\ s = (3 :> FALSE @@ 4 :> FALSE)
+/\ w = [p |-> 0, q |-> <<4, 3>>]
+/\ pc = <<"s06", "s10", "s16", "s15">>
+/\ readCount = 1
+/\ s_ = <<TRUE, FALSE>>
+/\ mutex = [p |-> 0, q |-> <<2>>]
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+26: <Action line 143, col 14 to line 146, col 47 of module RWPWithRPAndFairSemaphore>
+/\ s = (3 :> FALSE @@ 4 :> FALSE)
+/\ w = [p |-> 0, q |-> <<4, 3>>]
+/\ pc = <<"s07", "s10", "s16", "s15">>
+/\ readCount = 2
+/\ s_ = <<TRUE, FALSE>>
+/\ mutex = [p |-> 0, q |-> <<2>>]
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+27: <Action line 148, col 14 to line 151, col 51 of module RWPWithRPAndFairSemaphore>
+/\ s = (3 :> FALSE @@ 4 :> FALSE)
+/\ w = [p |-> 0, q |-> <<4, 3>>]
+/\ pc = <<"s09", "s10", "s16", "s15">>
+/\ readCount = 2
+/\ s_ = <<TRUE, FALSE>>
+/\ mutex = [p |-> 1, q |-> <<2>>]
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+28: <Action line 162, col 14 to line 167, col 47 of module RWPWithRPAndFairSemaphore>
+/\ s = (3 :> FALSE @@ 4 :> FALSE)
+/\ w = [p |-> 0, q |-> <<4, 3>>]
+/\ pc = <<"s09", "s11", "s16", "s15">>
+/\ readCount = 2
+/\ s_ = <<TRUE, TRUE>>
+/\ mutex = [p |-> 0, q |-> <<>>]
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+29: <Action line 157, col 14 to line 160, col 58 of module RWPWithRPAndFairSemaphore>
+/\ s = (3 :> FALSE @@ 4 :> FALSE)
+/\ w = [p |-> 0, q |-> <<4, 3>>]
+/\ pc = <<"s10", "s11", "s16", "s15">>
+/\ readCount = 2
+/\ s_ = <<TRUE, TRUE>>
+/\ mutex = [p |-> 0, q |-> <<>>]
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+30: <Action line 169, col 14 to line 173, col 58 of module RWPWithRPAndFairSemaphore>
+/\ s = (3 :> FALSE @@ 4 :> FALSE)
+/\ w = [p |-> 0, q |-> <<4, 3>>]
+/\ pc = <<"s10", "s12", "s16", "s15">>
+/\ readCount = 2
+/\ s_ = <<TRUE, TRUE>>
+/\ mutex = [p |-> 0, q |-> <<>>]
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+31: <Action line 175, col 14 to line 178, col 47 of module RWPWithRPAndFairSemaphore>
+/\ s = (3 :> FALSE @@ 4 :> FALSE)
+/\ w = [p |-> 0, q |-> <<4, 3>>]
+/\ pc = <<"s10", "s13", "s16", "s15">>
+/\ readCount = 1
+/\ s_ = <<TRUE, TRUE>>
+/\ mutex = [p |-> 0, q |-> <<>>]
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+32: <Action line 180, col 14 to line 185, col 55 of module RWPWithRPAndFairSemaphore>
+/\ s = (3 :> FALSE @@ 4 :> FALSE)
+/\ w = [p |-> 0, q |-> <<4, 3>>]
+/\ pc = <<"s10", "s14", "s16", "s15">>
+/\ readCount = 1
+/\ s_ = <<TRUE, TRUE>>
+/\ mutex = [p |-> 0, q |-> <<>>]
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+33: <Action line 187, col 14 to line 190, col 51 of module RWPWithRPAndFairSemaphore>
+/\ s = (3 :> FALSE @@ 4 :> FALSE)
+/\ w = [p |-> 0, q |-> <<4, 3>>]
+/\ pc = <<"s10", "startR", "s16", "s15">>
+/\ readCount = 1
+/\ s_ = <<TRUE, TRUE>>
+/\ mutex = [p |-> 1, q |-> <<>>]
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+34: <Action line 107, col 17 to line 109, col 61 of module RWPWithRPAndFairSemaphore>
+/\ s = (3 :> FALSE @@ 4 :> FALSE)
+/\ w = [p |-> 0, q |-> <<4, 3>>]
+/\ pc = <<"s10", "s01", "s16", "s15">>
+/\ readCount = 1
+/\ s_ = <<TRUE, TRUE>>
+/\ mutex = [p |-> 1, q |-> <<>>]
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+35: <Action line 111, col 14 to line 116, col 47 of module RWPWithRPAndFairSemaphore>
+/\ s = (3 :> FALSE @@ 4 :> FALSE)
+/\ w = [p |-> 0, q |-> <<4, 3>>]
+/\ pc = <<"s10", "s02", "s16", "s15">>
+/\ readCount = 1
+/\ s_ = <<TRUE, TRUE>>
+/\ mutex = [p |-> 0, q |-> <<>>]
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+36: <Action line 118, col 14 to line 122, col 58 of module RWPWithRPAndFairSemaphore>
+/\ s = (3 :> FALSE @@ 4 :> FALSE)
+/\ w = [p |-> 0, q |-> <<4, 3>>]
+/\ pc = <<"s10", "s03", "s16", "s15">>
+/\ readCount = 1
+/\ s_ = <<TRUE, TRUE>>
+/\ mutex = [p |-> 0, q |-> <<>>]
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+37: <Action line 124, col 14 to line 128, col 58 of module RWPWithRPAndFairSemaphore>
+/\ s = (3 :> FALSE @@ 4 :> FALSE)
+/\ w = [p |-> 0, q |-> <<4, 3>>]
+/\ pc = <<"s10", "s06", "s16", "s15">>
+/\ readCount = 1
+/\ s_ = <<TRUE, TRUE>>
+/\ mutex = [p |-> 0, q |-> <<>>]
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+38: <Action line 143, col 14 to line 146, col 47 of module RWPWithRPAndFairSemaphore>
+/\ s = (3 :> FALSE @@ 4 :> FALSE)
+/\ w = [p |-> 0, q |-> <<4, 3>>]
+/\ pc = <<"s10", "s07", "s16", "s15">>
+/\ readCount = 2
+/\ s_ = <<TRUE, TRUE>>
+/\ mutex = [p |-> 0, q |-> <<>>]
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+39: <Action line 148, col 14 to line 151, col 51 of module RWPWithRPAndFairSemaphore>
+/\ s = (3 :> FALSE @@ 4 :> FALSE)
+/\ w = [p |-> 0, q |-> <<4, 3>>]
+/\ pc = <<"s10", "s09", "s16", "s15">>
+/\ readCount = 2
+/\ s_ = <<TRUE, TRUE>>
+/\ mutex = [p |-> 1, q |-> <<>>]
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+40: <Action line 157, col 14 to line 160, col 58 of module RWPWithRPAndFairSemaphore>
+/\ s = (3 :> FALSE @@ 4 :> FALSE)
+/\ w = [p |-> 0, q |-> <<4, 3>>]
+/\ pc = <<"s10", "s10", "s16", "s15">>
+/\ readCount = 2
+/\ s_ = <<TRUE, TRUE>>
+/\ mutex = [p |-> 1, q |-> <<>>]
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+41: <Action line 162, col 14 to line 167, col 47 of module RWPWithRPAndFairSemaphore>
+/\ s = (3 :> FALSE @@ 4 :> FALSE)
+/\ w = [p |-> 0, q |-> <<4, 3>>]
+/\ pc = <<"s11", "s10", "s16", "s15">>
+/\ readCount = 2
+/\ s_ = <<TRUE, TRUE>>
+/\ mutex = [p |-> 0, q |-> <<>>]
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+42: <Action line 169, col 14 to line 173, col 58 of module RWPWithRPAndFairSemaphore>
+/\ s = (3 :> FALSE @@ 4 :> FALSE)
+/\ w = [p |-> 0, q |-> <<4, 3>>]
+/\ pc = <<"s12", "s10", "s16", "s15">>
+/\ readCount = 2
+/\ s_ = <<TRUE, TRUE>>
+/\ mutex = [p |-> 0, q |-> <<>>]
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+43: <Action line 175, col 14 to line 178, col 47 of module RWPWithRPAndFairSemaphore>
+/\ s = (3 :> FALSE @@ 4 :> FALSE)
+/\ w = [p |-> 0, q |-> <<4, 3>>]
+/\ pc = <<"s13", "s10", "s16", "s15">>
+/\ readCount = 1
+/\ s_ = <<TRUE, TRUE>>
+/\ mutex = [p |-> 0, q |-> <<>>]
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+44: <Action line 180, col 14 to line 185, col 55 of module RWPWithRPAndFairSemaphore>
+/\ s = (3 :> FALSE @@ 4 :> FALSE)
+/\ w = [p |-> 0, q |-> <<4, 3>>]
+/\ pc = <<"s14", "s10", "s16", "s15">>
+/\ readCount = 1
+/\ s_ = <<TRUE, TRUE>>
+/\ mutex = [p |-> 0, q |-> <<>>]
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+45: <Action line 187, col 14 to line 190, col 51 of module RWPWithRPAndFairSemaphore>
+/\ s = (3 :> FALSE @@ 4 :> FALSE)
+/\ w = [p |-> 0, q |-> <<4, 3>>]
+/\ pc = <<"startR", "s10", "s16", "s15">>
+/\ readCount = 1
+/\ s_ = <<TRUE, TRUE>>
+/\ mutex = [p |-> 1, q |-> <<>>]
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+46: <Action line 107, col 17 to line 109, col 61 of module RWPWithRPAndFairSemaphore>
+/\ s = (3 :> FALSE @@ 4 :> FALSE)
+/\ w = [p |-> 0, q |-> <<4, 3>>]
+/\ pc = <<"s01", "s10", "s16", "s15">>
+/\ readCount = 1
+/\ s_ = <<TRUE, TRUE>>
+/\ mutex = [p |-> 1, q |-> <<>>]
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+47: <Action line 111, col 14 to line 116, col 47 of module RWPWithRPAndFairSemaphore>
+/\ s = (3 :> FALSE @@ 4 :> FALSE)
+/\ w = [p |-> 0, q |-> <<4, 3>>]
+/\ pc = <<"s02", "s10", "s16", "s15">>
+/\ readCount = 1
+/\ s_ = <<TRUE, TRUE>>
+/\ mutex = [p |-> 0, q |-> <<>>]
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2122:4 @!@!@
+18: Back to state: <Action line 162, col 14 to line 167, col 47 of module RWPWithRPAndFairSemaphore>
+

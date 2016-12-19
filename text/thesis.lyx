@@ -14,6 +14,9 @@
 %\newcommand{\TitlePages}{\ThesisTitlePage\FrontMatter}
 %\hyphenation{de-bug-ging}
 %\usepackage{listings}
+
+\usepackage{amsfonts}
+\usepackage{framed}
 \end_preamble
 \options 11pt,oneside,final
 \use_default_options true
@@ -255,7 +258,7 @@ Testing is an integral part of software development - Several types of testing
 \end_layout
 
 \begin_layout Chapter
-Model checking
+Model Checking
 \end_layout
 
 \begin_layout Standard
@@ -298,8 +301,1057 @@ Disadvantages (state explosion, model realism - Any verification using model-bas
 ed techniques is only as good as the model of the system.)
 \end_layout
 
+\begin_layout Section
+Transition systems
+\end_layout
+
+\begin_layout Standard
+Transition systems are often used in computer science as models to describe
+ the behavior of systems.
+ They are basically directed graphs where nodes represent states, and edges
+ model transitions, i.e., state changes.
+ We will use the following formal definition of the TS [cit]:
+\end_layout
+
+\begin_layout Standard
+A transition system (TS) is a tuple 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$(S,Act,
+\backslash
+to,I,AP,L)$
+\end_layout
+
+\end_inset
+
+ where
+\end_layout
+
+\begin_layout Itemize
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$S$
+\end_layout
+
+\end_inset
+
+ is a set of states, 
+\end_layout
+
+\begin_layout Itemize
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$Act$
+\end_layout
+
+\end_inset
+
+ is a set of actions, 
+\end_layout
+
+\begin_layout Itemize
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+to 
+\backslash
+in S 
+\backslash
+times Act 
+\backslash
+times S$
+\end_layout
+
+\end_inset
+
+ is a transition relation,
+\end_layout
+
+\begin_layout Itemize
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$I 
+\backslash
+in S$
+\end_layout
+
+\end_inset
+
+ is a set of initial states,
+\end_layout
+
+\begin_layout Itemize
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$AP$
+\end_layout
+
+\end_inset
+
+ is a set of atomic propositions,
+\end_layout
+
+\begin_layout Itemize
+and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$L: S 
+\backslash
+to 2^{AP}$
+\end_layout
+
+\end_inset
+
+ is a labeling function.
+\end_layout
+
+\begin_layout Standard
+TS is called finite if 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$S$
+\end_layout
+
+\end_inset
+
+, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$Act$
+\end_layout
+
+\end_inset
+
+, and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$AP$
+\end_layout
+
+\end_inset
+
+ are finite.
+ 
+\end_layout
+
+\begin_layout Standard
+As an example, consider an hour-clock.
+ It may be represented by 12 different states, with transitions representing
+ actions the clock takes.
+ This includes incrementing the counter, or overflowing from ,,12
+\begin_inset Quotes erd
+\end_inset
+
+ to ,,1
+\begin_inset Quotes erd
+\end_inset
+
+ state.
+ In the conventional (and isolated) computer system, the states correspond
+ to every possible contents of the memory and internal state of the processor.
+ 
+\end_layout
+
+\begin_layout Standard
+The transition system may resemble other formalisms from computational theory,
+ such as a non-deterministic finite state machine.
+ However, there are important distinctions [cit, wiki]:
+\end_layout
+
+\begin_layout Itemize
+The set of states is not necessarily finite, or even countable,
+\end_layout
+
+\begin_layout Itemize
+the set of transitions is not necessarily finite, or even countable,
+\end_layout
+
+\begin_layout Itemize
+there are no initial or final states defined.
+\end_layout
+
+\begin_layout Standard
+TODO
+\end_layout
+
+\begin_layout Standard
+The notion of the labeling function is very important, since it allows for
+ expressing formal assertions about states.
+ For instance 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$[hour = 12]$
+\end_layout
+
+\end_inset
+
+ is a labeling for a valid clock state, while 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$[hour > 12]$
+\end_layout
+
+\end_inset
+
+ is not.
+ The function 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$L$
+\end_layout
+
+\end_inset
+
+ relates a set 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$L(s) 
+\backslash
+in 2^{AP}$
+\end_layout
+
+\end_inset
+
+ of atomic propositions to any state 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$s$
+\end_layout
+
+\end_inset
+
+.
+ It intuitively stands for exactly those atomic propositions 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$a 
+\backslash
+in AP$
+\end_layout
+
+\end_inset
+
+ which are satisfied by state 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$s$
+\end_layout
+
+\end_inset
+
+.
+ Given that 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+Phi$
+\end_layout
+
+\end_inset
+
+ is a propositional logic formula, then s satisfies the formula 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+Phi$
+\end_layout
+
+\end_inset
+
+ if the evaluation induced by 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$L(s)$
+\end_layout
+
+\end_inset
+
+ makes the formula 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+Phi$
+\end_layout
+
+\end_inset
+
+ true; that is: 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$s 
+\backslash
+models 
+\backslash
+Phi$
+\end_layout
+
+\end_inset
+
+ iff 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$L(s) 
+\backslash
+models 
+\backslash
+Phi$
+\end_layout
+
+\end_inset
+
+.
+ This enables reasoning about the entire TS using 
+\emph on
+temporal logic formulas
+\emph default
+.
+\end_layout
+
+\begin_layout Section
+Executions and Behaviors
+\end_layout
+
+\begin_layout Standard
+We represent the execution (or behavior
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+This terminology is used in the TLA+ specification, and is interchangeble
+ with ,,execution
+\begin_inset Quotes erd
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+) of a system as a sequence of states (and actions).
+ We specify a system by providing a set of executions representing a correct
+ behavior of the system [cit].
+ For example
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+For convenience, an element of the transition relation may be expressed
+ as an arrow between two states, labeled with the action from 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$Act$
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+,
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+\align center
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+dots 
+\backslash
+to^{tick} [hour = 1] 
+\backslash
+to^{tick} [hour = 2] 
+\backslash
+to^{tick} 
+\backslash
+dots 
+\backslash
+to^{tick} [hour = 12] 
+\backslash
+to^{tick} [hour = 1] 
+\backslash
+to^{tick} 
+\backslash
+dots$
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+More formally, execution is an 
+\emph on
+initial
+\emph default
+ and 
+\emph on
+maximal
+\emph default
+ execution 
+\emph on
+fragment
+\emph default
+.
+ Execution fragment is an alternating sequence of states and actions ending
+ with a state.
+ Maximal means that the fragment can not be prolonged, that is, it is either
+ infinite, or ends with a state from which no further transition is possible.
+ Initial fragment is defined as starting in 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$s 
+\backslash
+in I$
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+TODO
+\end_layout
+
+\begin_layout Standard
+Program Graph, Non-determinism, Concurrency
+\end_layout
+
+\begin_layout Section
+Linear Temporal Logic
+\end_layout
+
+\begin_layout Standard
+Linear Temporal Logic (LTL) is an extension of propositional logic with
+ two temporal modal operators.
+ The notion of time within the context of LTL is not related to a ,,continuous
+ real time line
+\begin_inset Quotes erd
+\end_inset
+
+, but rather a discreet sequence of steps ordered by ,,precedence
+\begin_inset Quotes erd
+\end_inset
+
+.
+ This makes it ideal to reason about properties of TS executions, and indeed,
+ it was first proposed specifically for the formal verification of computer
+ programs [cit, wiki].
+ Given an execution 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+rho$
+\end_layout
+
+\end_inset
+
+, LTL formula 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$F$
+\end_layout
+
+\end_inset
+
+ assigns a boolean value to 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+rho$
+\end_layout
+
+\end_inset
+
+.
+ In other words, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+rho$
+\end_layout
+
+\end_inset
+
+ satisfies 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$F$
+\end_layout
+
+\end_inset
+
+, expressed as 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$F 
+\backslash
+models 
+\backslash
+rho$
+\end_layout
+
+\end_inset
+
+, iff 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$F$
+\end_layout
+
+\end_inset
+
+ is evaluated as 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$true$
+\end_layout
+
+\end_inset
+
+ for 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+rho$
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Syntax of LTL can be inductively defined by extending propositional logic
+ (PL) syntax.
+ If 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+Phi$
+\end_layout
+
+\end_inset
+
+, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+Psi$
+\end_layout
+
+\end_inset
+
+ are well-formed PL formulas, then:
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Temporal operators have precedence and parentheses can be ommited if the
+ result is not ambiguous.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+Phi$
+\end_layout
+
+\end_inset
+
+, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+Psi$
+\end_layout
+
+\end_inset
+
+ are LTL formulas,
+\end_layout
+
+\begin_layout Itemize
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$(
+\backslash
+mathbf{X}
+\backslash
+Phi)$
+\end_layout
+
+\end_inset
+
+ is an LTL formula (pronounced ,,next 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+Phi$
+\end_layout
+
+\end_inset
+
+
+\begin_inset Quotes erd
+\end_inset
+
+),
+\end_layout
+
+\begin_layout Itemize
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$(
+\backslash
+Phi
+\backslash
+mathbf{U}
+\backslash
+Psi)$
+\end_layout
+
+\end_inset
+
+ is an LTL formula (,,
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+Phi$
+\end_layout
+
+\end_inset
+
+ until 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+Psi$
+\end_layout
+
+\end_inset
+
+
+\begin_inset Quotes erd
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+The semantics can be informally descibed by providing executions that satisfy
+ given formulas.
+ We define 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$any$
+\end_layout
+
+\end_inset
+
+ to be a placeholder for an arbitrary propositional formula:
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+\align center
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$([
+\backslash
+Phi]_{0} 
+\backslash
+to [any]_{1} 
+\backslash
+to [any]_{2} 
+\backslash
+to [any]_{3} 
+\backslash
+to 
+\backslash
+dots) 
+\backslash
+models 
+\backslash
+Phi$
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+\align center
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$([any]_{0} 
+\backslash
+to [
+\backslash
+Phi]_{1} 
+\backslash
+to [any]_{2} 
+\backslash
+to [any]_{3} 
+\backslash
+to 
+\backslash
+dots) 
+\backslash
+models 
+\backslash
+mathbf{X}
+\backslash
+Phi$
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+\align center
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$([
+\backslash
+Phi
+\backslash
+land
+\backslash
+neg
+\backslash
+Psi]_{0} 
+\backslash
+to 
+\backslash
+dots 
+\backslash
+to [
+\backslash
+Phi
+\backslash
+land
+\backslash
+neg
+\backslash
+Psi]_{i} 
+\backslash
+to [
+\backslash
+Psi]_{i+1} 
+\backslash
+to [any]_{i+2} 
+\backslash
+to 
+\backslash
+dots) 
+\backslash
+models 
+\backslash
+Phi
+\backslash
+mathbf{U}
+\backslash
+Psi$
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Moreover, we can use 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+mathbf{U}$
+\end_layout
+
+\end_inset
+
+, to derive two additional important operators:
+\end_layout
+
+\begin_layout Itemize
+,,Eventually
+\begin_inset Quotes erd
+\end_inset
+
+,
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+Diamond
+\backslash
+Phi$
+\end_layout
+
+\end_inset
+
+ which allows for expressing an assertion that must be true at some point
+ in the future, defined as 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$true
+\backslash
+mathbf{U}
+\backslash
+Phi$
+\end_layout
+
+\end_inset
+
+,
+\end_layout
+
+\begin_layout Itemize
+,,always
+\begin_inset Quotes erd
+\end_inset
+
+, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+Box
+\backslash
+Phi$
+\end_layout
+
+\end_inset
+
+ for formulas that must be satisfied during the entire execution, equivalent
+ to 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+neg
+\backslash
+Diamond
+\backslash
+neg
+\backslash
+Phi$
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+TODO bridge to TLA+
+\end_layout
+
+\begin_layout Section
+Liveness and Fairness
+\end_layout
+
+\begin_layout Itemize
+regular properties
+\end_layout
+
+\begin_layout Itemize
+omega properties
+\end_layout
+
 \begin_layout Chapter
-Distributed hash table
+Distributed Hash Table
 \begin_inset CommandInset label
 LatexCommand label
 name "chap:Distributed-hash-table"
@@ -332,6 +1384,428 @@ Formal definition, hash function
 \end_layout
 
 \begin_layout Section
+Associative Array
+\end_layout
+
+\begin_layout Standard
+Associative array (also dictionary or map) is an abstract data structure
+ that can be represented as a relation between a set of keys and a set of
+ values: 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$R 
+\backslash
+subseteq K 
+\backslash
+times V$
+\end_layout
+
+\end_inset
+
+, such that every key is mapped (in relation) to at most one value.
+\end_layout
+
+\begin_layout Standard
+There are three basic operations defined for an associative array: 
+\emph on
+insert
+\emph default
+, 
+\emph on
+search
+\emph default
+ and 
+\emph on
+delete
+\emph default
+.
+ [intro to alg.].
+ Insert operation updates a dictionary instance to contain a key-value pair.
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+We are letting the failure handling to be implementation-specific.
+\end_layout
+
+\end_inset
+
+ Search retrieves a value associated with a given key if it exists and delete
+ removes the key-value pair from the dictionary.
+\end_layout
+
+\begin_layout Standard
+The are many possible implementations of an associative array, but the most
+ common are hash map and search tree.
+ Typically, hash map is used due to the constant amortized cost for each
+ operation, but search tree has better worst case performance (logarithmic
+ vs.
+ linear) and provides additional features, such as ordered iteration.
+ [cit]
+\end_layout
+
+\begin_layout Standard
+To illustrate the concept of dictionary, we will briefly describe a simple
+ Direct-address table.
+ [cit] Given 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$T$
+\end_layout
+
+\end_inset
+
+ is a contiguous array of size 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$|K|$
+\end_layout
+
+\end_inset
+
+, let each position correspond to 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$k 
+\backslash
+in K$
+\end_layout
+
+\end_inset
+
+.
+ It is assumed that if 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$K$
+\end_layout
+
+\end_inset
+
+ is not of a form 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$K' = 
+\backslash
+{ 0, 1, ..., |K| 
+\backslash
+}$
+\end_layout
+
+\end_inset
+
+ there exists a bijective mapping function 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$m: K 
+\backslash
+to K'$
+\end_layout
+
+\end_inset
+
+.
+ If the table contains key 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$k$
+\end_layout
+
+\end_inset
+
+, position 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$m(k)$
+\end_layout
+
+\end_inset
+
+ holds a reference to the chosen value 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$v 
+\backslash
+in V$
+\end_layout
+
+\end_inset
+
+, otherwise there is a special 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$nil$
+\end_layout
+
+\end_inset
+
+ value.
+\end_layout
+
+\begin_layout Standard
+This implementation is practical only if 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$K$
+\end_layout
+
+\end_inset
+
+ is reasonably small, or most of the keys are in use.
+ The dictionary operations would then reduce to those of the contiguous
+ array, e.g 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$Insert(T, k, v) 
+\backslash
+stackrel{
+\backslash
+Delta}{=} T[k] := v$
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Hash Table
+\end_layout
+
+\begin_layout Standard
+The problems of the Direct-address table can be resolved by reducing the
+ contiguous array to a reasonable size.
+ This would result in some 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$k$
+\end_layout
+
+\end_inset
+
+ not having an assigned slot, however we can replace 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$m$
+\end_layout
+
+\end_inset
+
+ with a surjective 
+\emph on
+hash
+\emph default
+ function 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$h$
+\end_layout
+
+\end_inset
+
+ that maps the set of keys to a smaller set 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$K'$
+\end_layout
+
+\end_inset
+
+ of indices into 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$T$
+\end_layout
+
+\end_inset
+
+.
+ This would require that more than one value may be stored in a single position
+ (a 
+\emph on
+collision
+\emph default
+), but the slot can be used to reference a linked list that will contain
+ the overflowing key-value pairs.
+ This would increase the 
+\emph on
+worst-case
+\emph default
+ complexity of 
+\emph on
+search
+\emph default
+ operation to 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+O (n)$
+\end_layout
+
+\end_inset
+
+, but the 
+\emph on
+amortized
+\emph default
+ cost remains 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+O (1)$
+\end_layout
+
+\end_inset
+
+, if the hash function is properly chosen.
+ [cit]
+\end_layout
+
+\begin_layout Standard
+,,A good hash function satisfies (approximately) the assumption of simple
+ uniform hashing: each key is equally likely to hash to any of the [...] slots,
+ independently of where any other key has hashed to.
+\begin_inset Quotes erd
+\end_inset
+
+ [cit, intro to alg]
+\end_layout
+
+\begin_layout Standard
+One of the commonly used hash functions is 
+\emph on
+division remainder
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$h(k) = k mod z$
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$z$
+\end_layout
+
+\end_inset
+
+ should be a prime number not close to some power of 2.
+ [TODO]
+\end_layout
+
+\begin_layout Standard
+Although this method reduces the wasting of space when compared to the Direct-ad
+dress table, in some cases the size of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$V$
+\end_layout
+
+\end_inset
+
+ is too large for a physical memory of a single computer.
+ However, because of the advantagions properties of hash functions, it is
+ feasible to split the table into several chunks and distribute it across
+ nodes in a distributed system.
+ [reword]
+\end_layout
+
+\begin_layout Section
+Distributed Program
+\end_layout
+
+\begin_layout Standard
+TODO common problems and algorithms
+\end_layout
+
+\begin_layout Itemize
+Coordinator selection
+\end_layout
+
+\begin_layout Itemize
+Distributed locking
+\end_layout
+
+\begin_layout Section
 CAP theorem
 \end_layout
 
@@ -354,8 +1828,28 @@ Partition tolerance (the system continues to operate despite arbitrary partition
 ing due to network failures) 
 \end_layout
 
+\begin_layout Section
+Algorithms
+\end_layout
+
+\begin_layout Standard
+TODO
+\end_layout
+
+\begin_layout Section
+Consistent Hashing
+\end_layout
+
+\begin_layout Standard
+TODO
+\end_layout
+
+\begin_layout Section
+Leader Election
+\end_layout
+
 \begin_layout Chapter
-Infinispan design
+Infinispan
 \end_layout
 
 \begin_layout Standard
@@ -753,7 +2247,7 @@ Object perform(InvocationContext ctx) throws Throwable
 \end_layout
 
 \begin_layout Chapter
-Modeling languages and tools
+Model checking tools (techniques?)
 \end_layout
 
 \begin_layout Standard
@@ -785,12 +2279,140 @@ JPF Implementation of the JVM, executes the bytecode directly.
 SPIN Processes that communicate via channels (message passing)
 \end_layout
 
+\begin_layout Chapter
+TLA+
+\end_layout
+
 \begin_layout Standard
+In this chapter TLA+ is introduced.
+\end_layout
+
+\begin_layout Section
+Basic Mathematics
+\end_layout
+
+\begin_layout Standard
+TLA stands for the Temporal Logic of Actions, but it has become a shorthand
+ for referring to the TLA+ specification language and the PlusCal algorithm
+ language, together with their associated tools.
 \begin_inset Note Greyedout
 status open
 
 \begin_layout Plain Layout
-TODO
+TODO reword
+\end_layout
+
+\end_inset
+
+ TLA+ is especially well suited for writing high-level specifications of
+ concurrent and distributed systems.
+ [cit, web].
+ 
+\end_layout
+
+\begin_layout Standard
+TLA system (TLAS) is complex, so only selected parts are described.
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+TODO explain
+\end_layout
+
+\end_inset
+
+ but the main idea is to enable users to express mathematical formulas using
+ a clean and human-readable 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+LaTeX
+\end_layout
+
+\end_inset
+
+-like syntax.
+ TLA+ is based on the idea that the best way to describe things formally
+ is with simple mathematics, and that a specification language should contain
+ as little as possible beyond what is needed to write simple mathematics
+ precisely.
+ [cit] The are several built-in mathematical operators for expressing:
+\end_layout
+
+\begin_layout Itemize
+Equality,
+\end_layout
+
+\begin_layout Itemize
+Set Theory (Zermelo–Fraenkel [cit]) operations,
+\end_layout
+
+\begin_layout Itemize
+Propositional, Predicate and LTL logic theorems.
+\end_layout
+
+\begin_layout Standard
+With a definition operator, user can provide additional mathematical objects
+ and operations.
+ The basic TLA does not contain arithmetic operations on natural numbers,
+ for example, and their definitions must be imported from a standard module
+ library.
+ Every data structure is 
+\emph on
+conceptually
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+For performace reasons, this may not be true for an actual implementation
+ of TLAS.
+ 
+\end_layout
+
+\end_inset
+
+
+\emph default
+ a set.
+ This includes natural numbers, that are defined using Peano axioms.
+ The library modules include: Bags, FiniteSets, Integers, Naturals, Peano,
+ ProtoReals, Reals, and Sequences.
+ 
+\end_layout
+
+\begin_layout Section
+Specifications
+\end_layout
+
+\begin_layout Standard
+Model specification is in the TLA system defined using a single temporal
+ formula, most commonly
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$Spec 
+\backslash
+stackrel{
+\backslash
+Delta}{=} Init 
+\backslash
+land 
+\backslash
+Box[Next]_{
+\backslash
+langle vars 
+\backslash
+rangle}$
 \end_layout
 
 \end_inset
@@ -798,8 +2420,184 @@ TODO
 
 \end_layout
 
+\begin_layout Standard
+written as:
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+In subsequent text, monospace font is used to display related source code.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+verb$Spec == Init /
+\backslash
+ [][Next]_<<vars>>$
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This formula must hold for all executions, therefore specifying exactly
+ that transition system from an abstract space of all possible systems that
+ represents the model.
+ The 
+\emph on
+Init
+\emph default
+ formula establishes a set of initial states and the 
+\emph on
+Next
+\emph default
+ must be true for all subsequent states.
+ However, if this was an ordinary LTL formula, it would not be possible
+ to describe how ,,information
+\begin_inset Quotes erd
+\end_inset
+
+ can change between subsequent states.
+ To solve this problem, TLA extends LTL by allowing to reference not only
+ variables present in the current state, but also the variables in the next
+ state.
+ This is done by ,,priming
+\begin_inset Quotes erd
+\end_inset
+
+ the variable name.
+ For instance, if we define:
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$Init 
+\backslash
+stackrel{
+\backslash
+Delta}{=} x = 0$
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$Next 
+\backslash
+stackrel{
+\backslash
+Delta}{=} x' = x + 1$
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+we are specifying a variable that must be incremented during each step.
+\end_layout
+
 \begin_layout Chapter
-Model Design
+PlusCal
+\end_layout
+
+\begin_layout Standard
+TODO
+\end_layout
+
+\begin_layout Section
+Readers-Writers Problem
+\end_layout
+
+\begin_layout Standard
+TODO mention this earlier, this will become basis of distributed cluter-wide-loc
+k based protocol
+\end_layout
+
+\begin_layout Standard
+,,cesses.
+ The problem they deal with has been showcesses.
+ The problem they deal with has been shown to have a relatively simple solution
+ using the "P" and "V" operations of Dijkstra [4].
+ We discuss two related problems of practical significance in which we recognize
+ two classes of processes wishing to use the resource.
+ The processes of the first class, named writers, must have exclusive access
+ as in the original problem, but processes of the second class, the readers,
+ may share the resource with an unlimited number of other readers.
+ 
+\end_layout
+
+\begin_layout Itemize
+[wiki -> Courtois et al.]
+\end_layout
+
+\begin_layout Itemize
+first readers-writers problem, in which the constraint is added that no
+ reader shall be kept waiting if the share is currently opened for reading.
+ This is also called readers-preference
+\end_layout
+
+\begin_layout Itemize
+This is the motivation for the second readers-writers problem, in which
+ the constraint is added that no writer, once added to the queue, shall
+ be kept waiting longer than absolutely necessary.
+ This is also called writers-preference.
+\end_layout
+
+\begin_layout Itemize
+Therefore, the third readers-writers problem is sometimes proposed, which
+ adds the constraint that no thread shall be allowed to starve; that is,
+ the operation of obtaining a lock on the shared data will always terminate
+ in a bounded amount of time.
+\end_layout
+
+\begin_layout Standard
+Readers-preference
+\end_layout
+
+\begin_layout Section
+Dining Philosophers
+\end_layout
+
+\begin_layout Standard
+TODO 
+\end_layout
+
+\begin_layout Itemize
+Demonstrate deadlock detection
+\end_layout
+
+\begin_layout Chapter
+[Infinity DHT] Model Design
 \end_layout
 
 \begin_layout Standard
@@ -808,6 +2606,10 @@ In this chapter, top-down desing of the model is presented.
 
 \begin_layout Section
 High-level design
+\end_layout
+
+\begin_layout Standard
+TODO this is no longer vaid
 \end_layout
 
 \begin_layout Standard
@@ -869,96 +2671,408 @@ Network
 \end_layout
 
 \begin_layout Standard
-Physical computer network can be abstracted into a graph G with vertices
- representing nodes, edges possible connections: V(G)=(C
-\backslash
-cupS
-\backslash
-cup).
- Physical networks also consist of routing and other devices, however for
- our initial attempt, we can let the graph be a clique and simulate network
- failures by removing the edges or otherwise changing their the properties.
-\begin_inset CommandInset line
-LatexCommand rule
-offset "0.5ex"
-width "100col%"
-height "1pt"
+What type of network is it useful to simulate? -> connectionless datagram
+ network like UDP, not TCP (although that is available for infinispan)
+\end_layout
+
+\begin_layout Section
+Network Reliability
+\end_layout
+
+\begin_layout Standard
+Communication over a network should be as reliable as possible.
+ In a perfect world, nodes in a distributed system should always succeed
+ in sending messages to others and in receiving them back.
+ In reality however, communication protocols must deal with messages arriving
+ late, in a different order than they were sent, or not at all.
+ When designing and specifying such protocols, it is important to consider
+ which failure modes the networking part of the model should simulate, especiall
+y when keeping the number of its states as small as possible is a necessity.
+ On the other hand, to be useful, the model must be verified under failure
+ conditions that occur in the real world.
+\end_layout
+
+\begin_layout Itemize
+The network model simulates 
+\emph on
+message order change
+\emph default
+, but not 
+\emph on
+latency
+\emph default
+.
+ 
+\begin_inset Newline newline
+\end_inset
+
+This means, that if some message has been sent to a node, it shall not receive
+ a ,,no message available
+\begin_inset Quotes erd
+\end_inset
+
+ signal.
+ However, if there is more that one packet ,,in the network
+\begin_inset Quotes erd
+\end_inset
+
+, any of them may be delivered first.
+\end_layout
+
+\begin_layout Itemize
+It is necessary to simulate network partition and recovery, but random packet
+ loss is not simulated.
+\begin_inset Note Greyedout
+status open
+
+\begin_layout Plain Layout
+This may be included after all.
+\end_layout
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Standard
-Properties to check:
-\end_layout
-
-\begin_layout Itemize
-unreliable message delivery (relation to JGroups?, view change?) 
+ This means that network connection between nodes may be lost only in a
+ specific points in the model execution.
+ TODO explain, Two Generals problem, TCP/IP in real world?
 \end_layout
 
 \begin_layout Itemize
-message dropping
+
+\emph on
+Double delivery
+\emph default
+ is not simulated.
+ This increases model complexity and can be avoided in implementation, by
+ using suficiently large monotonic sequence to mark packets.
 \end_layout
 
 \begin_layout Itemize
-asynchronous delivery, e.g.
- unordered messages
-\end_layout
-
-\begin_layout Itemize
-delay - network partitions 
-\end_layout
-
-\begin_layout Standard
-These can be modeled by adding a non-deterministic decision to drop a message,
- and a decision to delay a message up to a specified amount of time.
- If the network edge is modeled as a priority queue with delays for each
- direction, this would also model message reordering.
- This queue must be size-limited and excessive messages dropped.
-\end_layout
-
-\begin_layout Standard
-Not-well formed messages would be hard to model, and since the network layer
- is implemented using JGroup which provide some guarantees to Infinispan,
- it depends on the level of detail that JGroups will be modelled.
-\end_layout
-
-\begin_layout Standard
-Size and the resulting capacity of the must be kept reasonaly small, as
- well as the total number of possible messages.
+Undelivered packets are removed on connection loss.
+ 
 \end_layout
 
 \begin_layout Section
-Data node
+Message Model
 \end_layout
 
 \begin_layout Standard
-Data node contains:
+Message structure is inspided by UDP/IP packets.
+ Each message contains three fields: recipient, sender and data.
+ The data type is therefore 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$msg 
+\backslash
+in (AddressSpace 
+\backslash
+times AddressSpace 
+\backslash
+times DataSpace)$
 \end_layout
 
-\begin_layout Itemize
-The hash table
+\end_inset
+
+.
+ There is a special singleton 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$NoMessage$
 \end_layout
 
-\begin_layout Itemize
-Locks and synchronization mechanisms
+\end_inset
+
+ message for signalling that the network has no packets available for the
+ requester.
+ This includes a case of network failure.
+ Because TLA requires sets to be enumerable, it is important to estimate
+ numer of possible messages: 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$|AddressSpace|^2 
+\backslash
+dot |DataSpace|$
 \end_layout
 
-\begin_layout Itemize
-Network command receiving and execution loop
+\end_inset
+
+.
+ If we need 3 nodes and one unclaimed address to model simplest DHT system,
+ and consider read and write operations for 12 possible keys and 2 possible
+ valuest, the lower bound is 4^2 * 2 * 12 * 2 = 768 messages.
+ The content of the network may be up to 2^768.
+ We will have to make sure this will we far less in reality.
+ Eg.
+ cluster-wide write locking (max NodeCount write messages), discovery-protocol-l
+ocking, artificial packet cap (max number of ,,in network
+\begin_inset Quotes erd
+\end_inset
+
+ messages for each connection, e.g.
+ 3: 3 * N * (N-1) = 3 * 4 * 3 = 36, i.e (768 choose 36) + (768 choose 35)
+ + ...
+ + 1 =~ 9.17*10^61?
 \end_layout
 
 \begin_layout Section
-Client node
+Network Model
 \end_layout
 
 \begin_layout Standard
-The purpose of client nodes is to connect to data nodes and issue read-write
- operations.
- Verification of the system properties uses both the state of the clients
- when issuing a command and the resulting effects on data nodes and other
- clients that may read the data.
+From an highly abstract (not a good term) point of view, computer network
+ is an undirected graph, with nodes representing addressable elements and
+ edges connections between them.
+ Since the network has not only a topology, but also a state, each .
+\end_layout
+
+\begin_layout Standard
+Constructing simplified model is necessary.
+ First, topology - it is unnecessary to consider internal structure of the
+ network, including routing elements.
+ It can be simplified into a subgraph of a connected graph.
+ Additionaly, if there is a path from A to C via B, it is good to assume
+ that A to C is also connected.
+ Algorithm for relay can be easily implemented, and there is no reason to
+ not use it in a general case.
+ Therefore, each connected component becomes a complete graph.
+ This information can be more effectively stored as a set of network partitions,
+ each partition is a set containing nodes, where a single node must be in
+ exactly one partition.
+ If we remove a need for routing (better to say forwarding) nodes, network
+ state may be simplified to a list of messages that are being tranfered
+ via each connection.
+ However, it would be overkill to assign a buffer to each connection, since
+ the messages already contain receiver and sender addresses, and therefore
+ all messages may be stored in the same buffer for the entire partition.
+ However even more simply, since we already have the information whether
+ sender and receiver are in the same partition, we can actually store all
+ messages that are waiting to be received in a single set for the entire
+ network.
+ We can therefore check if the message is stored in the buffer or thrown
+ away.
+ To keep the buffer smallest possible, if a partition happens, throw away
+ now undeliverable messages.
+\end_layout
+
+\begin_layout Standard
+Does this conform to the previously stated failure constraints?
+\end_layout
+
+\begin_layout Standard
+Therefore: (copy paste parts of network spec)
+\end_layout
+
+\begin_layout Standard
+,,Operations
+\begin_inset Quotes erd
+\end_inset
+
+ (TODO define as special predicates):
+\end_layout
+
+\begin_layout Itemize
+send (packet/data)
+\end_layout
+
+\begin_layout Itemize
+receive
+\end_layout
+
+\begin_layout Itemize
+internal clean
+\end_layout
+
+\begin_layout Itemize
+do_partition() // args?, original, new one?
+\end_layout
+
+\begin_layout Itemize
+do_nondet_partition
+\end_layout
+
+\begin_layout Itemize
+do_mend + nondet
+\end_layout
+
+\begin_layout Itemize
+broadcast // should be modeled 
+\end_layout
+
+\begin_layout Standard
+Space size estimation -> limit this, (some states may not even be reachable,
+ or make sure they are not)
+\end_layout
+
+\begin_layout Standard
+What to do if network capacity reached? -> throw away (can we do that?)
+\end_layout
+
+\begin_layout Section
+Node
+\end_layout
+
+\begin_layout Standard
+TODO how node is structured, overview
+\end_layout
+
+\begin_layout Section
+View Distribution Protocol (Leader Election)
+\end_layout
+
+\begin_layout Section
+Distributed Read Protocol
+\end_layout
+
+\begin_layout Standard
+See readers-writers problem
+\end_layout
+
+\begin_layout Section
+Distributed Write Protocol
+\end_layout
+
+\begin_layout Standard
+see readers-writers problem
+\end_layout
+
+\begin_layout Section
+Distributed Read and Write
+\end_layout
+
+\begin_layout Standard
+In one of the previous chapters, we have described a solution to the problem
+ of ensuring that concurrent read and write access to the shared variableconsist
+ent
+\end_layout
+
+\begin_layout Section
+Paxos
+\end_layout
+
+\begin_layout Standard
+Paxos is a family of algorithms for reaching consensus in a distributed
+ system operating in an unreliable environment.
+ Given a set of nodes (processes), a consensus algorithm ensures that a
+ single one among the proposed values is chosen.
+ [paxos made simple] The safety requirements for consensus are:
+\end_layout
+
+\begin_layout Itemize
+Only a value that has been proposed may be chosen,
+\end_layout
+
+\begin_layout Itemize
+only a single value is chosen, and 
+\end_layout
+
+\begin_layout Itemize
+a process never learns that a value has been chosen unless it actually has
+ been.
+ [cit]
+\end_layout
+
+\begin_layout Standard
+To describe the algorithm, three roles are used: proposer, acceptor, and
+ learner.
+ In many versions of Paxos, nodes asume more than one role.
+ For the purposes of DHT design, where the nodes are equal and run the same
+ software, this results in all nodes having each role.
+ There are following assumptions about unreliability of nodes and the network:
+\end_layout
+
+\begin_layout Itemize
+Each node runs asynchronously at different speeds and may stop or restart.
+\end_layout
+
+\begin_layout Itemize
+Messages may be delayed, lost or reordered, but there are no Byzantine errors
+ (they may not be corrupted).
+\end_layout
+
+\begin_layout Standard
+The central idea of the Paxos is to extend three-phase-commit protocol (3PC)
+ with the concept of quorums.
+ 
+\end_layout
+
+\begin_layout Standard
+A single round of 3PC consists of three phases, with participating nodes
+ having two possible roles, 
+\emph on
+coordinator
+\emph default
+ or 
+\emph on
+agent
+\emph default
+.
+ Coordinator is the initiator and manager of the transaction, while agents
+ can vote to 
+\emph on
+accept
+\emph default
+ the transaction and 
+\emph on
+learn
+\emph default
+ about the results.
+\end_layout
+
+\begin_layout Standard
+In the first phase, coordinator receives a request to initiate a transaction,
+ and sends <prepare> messages to all agents, containing the transaction
+ information and waits for the resposes, or aborts on time-out.
+ Agents receive the message, and decide whether they are ready for the transacti
+on to start, and send <accept> or <reject>
+\end_layout
+
+\begin_layout Standard
+Quorum is a subset of acceptors, large enough that any such subset must
+ have at least one acceptor in common with the choice in the previous round.
+ This ensures that there is always some acceptor that has learnt the newest
+ value and can rejects an invalid proposal.
+\end_layout
+
+\begin_layout Standard
+[--]
+\end_layout
+
+\begin_layout Standard
+Second, getting a consensus protocol right is hard.
+ Simple solutions don’t work very well, exhibiting undesirable behaviours
+ and occasionally acting incorrectly.
+ Mike Burrows, inventor of the Chubby service at Google, says that “there
+ is only one consensus protocol, and that’s Paxos” – all other approaches
+ are just broken versions of Paxos.
+\end_layout
+
+\begin_layout Chapter
+Execution and Analysis
+\end_layout
+
+\begin_layout Standard
+TODO:
+\end_layout
+
+\begin_layout Itemize
+Verification of standalone modules
+\end_layout
+
+\begin_layout Itemize
+Limitations on state space
+\end_layout
+
+\begin_layout Itemize
+Test on Amazon AWS, x1.16xlarge 64vcpu 976gbram 1 x 1920gb SSD, $6.669 per
+ Hour = 168.16czk
 \end_layout
 
 \begin_layout Bibliography
