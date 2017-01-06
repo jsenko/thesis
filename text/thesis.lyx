@@ -1790,7 +1790,39 @@ $V$
 \end_layout
 
 \begin_layout Section
-Distributed Program
+Parallelism and Concurrency
+\end_layout
+
+\begin_layout Standard
+In the previous section, we have descibed a use case where it is advantageous
+ to use multiple physical machines (processors) to deal with resource-intensive
+ tasks.
+ Parallelization has become the only major way to keep increasing the processing
+ power of modern computers sufficiently to meet the demand, apart from increasin
+g transistor density.
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Not considering alternative models of computations, in particular the quantum
+ computing, which is not yet practical to be in common use.
+\end_layout
+
+\end_inset
+
+ This includes scaling-up, by adding multiple processing units into a single
+ CPU, and scaling out by using multiple physical computers connected by
+ a network.
+ Creating algorithms that can safely work in a parallell environment has
+ therefore become one of the most important tasks of software design.
+\end_layout
+
+\begin_layout Standard
+[TODO]
+\end_layout
+
+\begin_layout Section
+Distributed Algorithm
 \end_layout
 
 \begin_layout Standard
@@ -1841,11 +1873,219 @@ Consistent Hashing
 \end_layout
 
 \begin_layout Standard
-TODO
+In the section describing a hash table, an idea of partitioning and distributing
+ the data onto multiple separate nodes was proposed.
+ To ensure effective read/write operations, all nodes must be aware of where
+ value corresponding to each key should be stored, otherwise they would
+ have to broadcast read requests or cause fragmentation when choosing where
+ to write at random.
+ Moreover, this mapping cannot be stored individually for each key or the
+ space needed to store the keys would be linearly dependent on the number
+ of values and defeating the point of distributed storage.
+ Therefore, given that the image 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$K'$
+\end_layout
+
+\end_inset
+
+ of the hashing function 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$h$
+\end_layout
+
+\end_inset
+
+ is a set of integers in the form 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+{0, 1, ..., |K|
+\backslash
+}$
+\end_layout
+
+\end_inset
+
+ , it is necessary to store that assignment as a set of ranges of keys 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$R$
+\end_layout
+
+\end_inset
+
+, where each element is in the form 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$r_{<i, j>} = 
+\backslash
+{i, (i + 1), (i + 2), ..., j
+\backslash
+}$
+\end_layout
+
+\end_inset
+
+ and all keys are covered: 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+forall k 
+\backslash
+in K, 
+\backslash
+exists r 
+\backslash
+in R: k 
+\backslash
+in r$
+\end_layout
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+The mapping 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$p: N 
+\backslash
+to R$
+\end_layout
+
+\end_inset
+
+ from the set of nodes 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$N$
+\end_layout
+
+\end_inset
+
+ to the key-ranges (and reverse) may be created in numerous ways.
+ There are two main properties that affect a choice of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$p$
+\end_layout
+
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+Load factors
+\emph default
+ that determines a percentage of keys that are assigned for each individual
+ node, usually to reflect the amount of computing resources available to
+ store the values on a node, and
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+replication parameter
+\emph default
+, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$1 
+\backslash
+geq rp 
+\backslash
+geq |N|$
+\end_layout
+
+\end_inset
+
+, that specifies the number of nodes that each key is assigned to.
+\end_layout
+
+\begin_layout Standard
+Some of the implementations of DHTs allow for setting more complex load
+ factors setting, but for the our purposes, we will use a weak requirement
+ to balance data equally among the nodes.
+ Replication parameter reflects a tradeoff between the extra storage space
+ and higher write speed available with lower values and resiliency and improved
+ read speed with higher values.
+ Additional requirement for a good algorithm for computing 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$p$
+\end_layout
+
+\end_inset
+
+ in the presence of unreliable environment is that in the event of node
+ failure, it minimizes the number of keys, and with them the amount of data,
+ that must be relocated to other nodes, called 
+\emph on
+rebalancing
+\emph default
+.
+ Techniques that respect the described requirements are called 
+\emph on
+consistent hashing
+\emph default
+ and one of the most used, elegant, and simple concepts used to implement
+ it is 
+\emph on
+hash wheel
+\emph default
+.
 \end_layout
 
 \begin_layout Section
 Leader Election
+\end_layout
+
+\begin_layout Standard
+[TODO]
 \end_layout
 
 \begin_layout Chapter
@@ -1853,81 +2093,85 @@ Infinispan
 \end_layout
 
 \begin_layout Standard
-There are three main caching techniques that can be deployed, each with
- their own pros and cons.
- 
-\end_layout
+,,Infinispan is a distributed in-memory key/value data store [...].
+ It can be used both as an embedded Java library and as a language-independent
+ service accessed remotely over a variety of protocols [...].
+ It offers advanced functionality such as transactions, events, querying
+ and distributed processing.
+\begin_inset Quotes erd
+\end_inset
 
-\begin_layout Itemize
-Write-through cache directs write I/O onto cache and through to underlying
- permanent storage before confirming I/O completion to the host.
- 
-\end_layout
+ [cit, inf.
+ web page] Provided to customers by Red Hat as JBoss Data Grid, it is a
+ solution ,,to store information for very fast, low-latency response time
+ and very high throughput
+\begin_inset Quotes erd
+\end_inset
 
-\begin_layout Itemize
-Write-around cache is a similar technique to write-through cache, but write
- I/O is written directly to permanent storage, bypassing the cache.
- This can reduce the cache being flooded with write I/O that will not subsequent
-ly be re-read, but has the disadvantage is that a read request for recently
- written data will create a “cache miss” and have to be read from slower
- bulk storage and experience higher latency.
-\end_layout
+.
+ [jdg page] It can be used as a ,,distributed cache, NoSQL database, and
+ event broker
+\begin_inset Quotes erd
+\end_inset
 
-\begin_layout Itemize
-Write-back cache is where write I/O is directed to cache and completion
- is immediately confirmed to the host.
- This results in low latency and high throughput for write-intensive application
-s, but there is data availability exposure risk because the only copy of
- the written data is in cache.
-\end_layout
-
-\begin_layout Section
-Overview
-\end_layout
-
-\begin_layout Standard
-Infinispan is at its core a distributed in-memory hashtable.
-\end_layout
-
-\begin_layout Standard
-More complex features are built on top of that:
-\end_layout
-
-\begin_layout Itemize
-persistence (file storage) 
-\end_layout
-
-\begin_layout Itemize
-Apache Lucene queries (fulltext indexes) 
-\end_layout
-
-\begin_layout Itemize
-map/reduce engine
-\end_layout
-
-\begin_layout Itemize
-enterprise integration (Java EE servers, CDI, Spring) 
-\end_layout
-
-\begin_layout Itemize
-management
-\end_layout
-
-\begin_layout Standard
-There are two main use-cases (modes): 
-\end_layout
-
-\begin_layout Itemize
-embedded - used as a library in a Java SE application 
-\end_layout
-
-\begin_layout Itemize
-server - standalone deployment (in an application server) that the clients
- communicate with using REST API or binary protocol
+ [jdg page] to improve data storage and processing capabilities of massive-scale
+ applications.
+ Most of these featues are built on top of a modern distributed hash table
+ implementation, therefore, for the purpose of this work, it is a great
+ model example to explore.
+ As a result, this chapter focuses on analyzing the core parts of this project.
 \end_layout
 
 \begin_layout Section
-Concurrency in Infinispan
+Infinispan as a Cache
+\end_layout
+
+\begin_layout Standard
+Cache is a data structure, which is used to temporarily store information
+ that would be more expensive to compute or retrieve separately and repeatedly
+ for each request.
+ The most basic cache implementations provide the same interface as an associati
+ve array.
+ There are three main caching techniques that can be used: [cit computerweekly.co
+m]
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+Write-through
+\emph default
+ cache directs expensive write operation onto cache and through to underlying
+ permanent storage before confirming completion to the host,
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+write-around
+\emph default
+ cache is similar, but data is written directly to permanent storage, and
+ are cached upon subsequent reading, and
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+write-back 
+\emph default
+cache where the information being written is directed to cache and completion
+ is immediately confirmed to the host and synchronized to the backing storage
+ later.
+\end_layout
+
+\begin_layout Standard
+Infinispan supports all of these techniques.
+ [cit inf.
+ docs]
+\end_layout
+
+\begin_layout Section
+Clustering in Infinispan
 \end_layout
 
 \begin_layout Standard
@@ -1936,40 +2180,53 @@ Infinispan offers four modes of operation, which determine how and where
 \end_layout
 
 \begin_layout Itemize
-local - where entries are stored on the local node only, regardless of whether
- a cluster has formed.
- In this mode Infinispan is typically operating as a local cache 
+
+\emph on
+Local,
+\emph default
+ where entries are stored on the local node only, regardless of whether
+ a cluster has formed,
 \end_layout
 
 \begin_layout Itemize
-invalidation (write-around cache) - where all entries are stored in a permanent
- store (such as a database) and cache is used to alleviate intensive read
- operations.
- When a node needs the entry it will load it from a cache store.
+
+\emph on
+invalidation,
+\emph default
+ a write-around mode, where all entries are stored in a permanent store
+ and cache is used to alleviate intensive read operations.
  Clustering is used only to invalidate data on all nodes on change.
  
 \end_layout
 
 \begin_layout Itemize
-replication - where all entries are replicated to all nodes.
- In this mode Infinispan is typically operating as a data grid or a temporary
- data store, but doesn’t offer an increased heap space.
+
+\emph on
+Replication,
+\emph default
+ where all entries are replicated to all nodes.
+ In this mode, Infinispan doesn’t offer an increased space but a faster
+ read times.
  
 \end_layout
 
 \begin_layout Itemize
-distribution - where entries are distributed to a subset of the nodes only.
- In this mode Infinispan is typically operating as a data grid providing
- an increased heap space.
- Uses topology aware consistent hashing, which will ensure that the owners
- of entries are located in different data centers, racks, or physical machines,
- to offer improved durability in case of node crashes or network outages.
+
+\emph on
+Distribution
+\emph default
+, in which case entries are distributed to a subset of the nodes only.
+ This option provides increased heap space by distributing the data on multiple,
+ but not all nodes.
+ Uses topology aware consistent hashing to offer improved durability in
+ case of node crashes or network outages.
 \end_layout
 
 \begin_layout Standard
 Last three options can use synchronous or asynchronous modes.
- In synchronous mode, client is blocked until the operations complete and
- are confirmed.
+ In synchronous mode (write-through), client waits until the operations
+ are confirmed complete, asynchronous (write-back) offers the fastest non-blocki
+ng access.
 \end_layout
 
 \begin_layout Section
@@ -2531,7 +2788,321 @@ PlusCal
 \end_layout
 
 \begin_layout Standard
-TODO
+PlusCal is an algorithm language that can be translated into an expression
+ in TLA+.
+ The purpose of PlusCal is to make writing of specifications easier, since
+ it is often simpler to express an algorithm in an imperative way using
+ a C-like or Pascal-like syntax.
+ This chapter provides an overview of the language as well as an explanation
+ of the ideas behind the translation process.
+\end_layout
+
+\begin_layout Section
+Control Flow Graph
+\end_layout
+
+\begin_layout Standard
+The main idea behind PlusCal is to convert a collection of atomic algorithmic
+ steps, usually variable assignments, and control flow statements, most
+ importantly the conditional 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{if}
+\end_layout
+
+\end_inset
+
+ and unconditional 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{goto}
+\end_layout
+
+\end_inset
+
+ jump into an abstract control flow graph.
+ 
+\end_layout
+
+\begin_layout Standard
+Control flow graph (CFG) is a representation, using graph notation, of all
+ paths that might be traversed through a program during its execution.
+ [cit, wiki].
+ Nodes in CFG represent a block of code that is executed sequentially, and
+ directed edges represent possible control flow changes.
+ Node should contain at most one logical control flow statement, e.g 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{for(...)}
+\end_layout
+
+\end_inset
+
+.
+ Edge starts in a node with such a statement, and ends with a node containing
+ a possible jump target.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+PlusCal algorithm for hour clock
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:1"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename hr-clock-pc.png
+	width 15cm
+	BoundingBox 0cm 0bp 1266bp 660bp
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:1"
+
+\end_inset
+
+, a PlusCal algorithm for the hour clock problem described previously [TODO
+ ref chapter] is presented.
+ Note that it starts with a declaration of global variable 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{hr}
+\end_layout
+
+\end_inset
+
+, and contains two control flow statemens (infinite 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{for}
+\end_layout
+
+\end_inset
+
+ loop and an 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{if}
+\end_layout
+
+\end_inset
+
+ conditional) and two assignments.
+ In addition, the algorithm contains labels (such as 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{s01:}
+\end_layout
+
+\end_inset
+
+ to mark ,,atomic
+\begin_inset Quotes erd
+\end_inset
+
+ statements, that represent a single step in the resulting TLA+ execution.
+ As a result, there must be at most one assignment to the same variable
+ per label.
+ In addition, they are also used to designate nodes in the CFG, and therefore
+ are required at places where the control flow changes.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Program Graph for hour clock algorithm
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Program-Graph-for"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename prog-graph.png
+	width 10cm
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The final graph, shown in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Program-Graph-for"
+
+\end_inset
+
+ contains five nodes (there is always a special 
+\emph on
+Init
+\emph default
+ node) and 6 edges.
+ Each of these nodes is translated into a separate TLA+ definition.
+ To determine which path in the algorithm is taken, an additional 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{pc}
+\end_layout
+
+\end_inset
+
+ variable (program counter) is defined for each process (PlusCal can be
+ used to define multiple concurrently executed processes) and works like
+ a instruction pointer register in common processors.
+ Each TLA+ node-definition contains a condition, that requires the program
+ counter value to contain a name of the label it implements.
+ Moreover, it sets the counter value to enable transition to one of the
+ subsequent nodes in CFG.
+ As a result, the final TLA+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{Next}
+\end_layout
+
+\end_inset
+
+ formula is a conjunction of statements for each label, as prezented in
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Translated-PlusCal-algorithm"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Translated PlusCal algorithm for hour clock
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Translated-PlusCal-algorithm"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename hr-clock-pc-translation.png
+	width 10cm
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -2539,20 +3110,30 @@ Readers-Writers Problem
 \end_layout
 
 \begin_layout Standard
-TODO mention this earlier, this will become basis of distributed cluter-wide-loc
-k based protocol
-\end_layout
+Readers-writers is a classical ,,problem of the mutual exclusion of several
+ independent processes from simultaneous access to a 
+\emph on
+critical section
+\emph default
+.
+ [...] There are two distinct classes of processes known as 
+\emph on
+readers
+\emph default
+ and 
+\emph on
+writers
+\emph default
+.
+ The readers may share the section with each other, but the writers must
+ have exclusive access.
+\begin_inset Quotes erd
+\end_inset
 
-\begin_layout Standard
-,,cesses.
- The problem they deal with has been showcesses.
- The problem they deal with has been shown to have a relatively simple solution
- using the "P" and "V" operations of Dijkstra [4].
- We discuss two related problems of practical significance in which we recognize
- two classes of processes wishing to use the resource.
- The processes of the first class, named writers, must have exclusive access
- as in the original problem, but processes of the second class, the readers,
- may share the resource with an unlimited number of other readers.
+ [Curtois] Therefore, the critical section contains read or write operations
+ on a shared variable performed by readers and writers, respectively.
+ There may be additional liveness and fairness constrains, resulting in
+ several possible solutions.
  
 \end_layout
 
